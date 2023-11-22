@@ -1,0 +1,41 @@
+{% extends 'base.html' %} 
+{% block title %}Home{% endblock %} 
+{% block base %}
+
+<div class="container mt-5">
+  <div class="jumbotron">
+    <h1 class="display-4">Welcome to Students Profile</h1>
+    <p class="lead">Manage your students easily.</p>
+    <p>Hi, {{firstName}}</p>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Add Students</h5>
+          <p class="card-text">Add new students to the database.</p>
+          <a href="{% url 'addStudents' %}" class="btn btn-primary">Go to Add Students</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Update Students</h5>
+          <p class="card-text">Edit and update student information.</p>
+          <a href="{% url 'updateStudents' %}" class="btn btn-primary">Go to Update Students</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Show Students</h5>
+          <p class="card-text">View the list of all students.</p>
+          <a href="{% url 'students' %}" class="btn btn-primary">Go to Show Students</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

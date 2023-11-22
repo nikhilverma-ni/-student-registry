@@ -1,0 +1,44 @@
+{% extends 'index.html' %} 
+{% block title %} Update Students{% endblock %}
+<!-- to show errors/success -->
+{%block alert%} 
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}">{{ message }}</div>
+{% endfor %} 
+{%endblock%} 
+
+{% block action_columns %}
+<th>Action</th>
+{%endblock%} 
+
+{% block action_data %}
+<td class="d-flex justify-content-evenly">
+  <form
+    method="post"
+    action="{% url 'delete_student' item.email %}"
+    onsubmit="return confirmDelete()"
+  >
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">
+      <i class="fas fa-trash"></i>
+    </button>
+  </form>
+  <form method="post" action="{% url 'update_student' item.email %} ">
+    {% csrf_token %} {{ form.as_table }}
+    <button type="submit" class="btn btn-primary">
+      <i class="fas fa-edit"></i>
+    </button>
+  </form>
+</td>
+
+<script>
+  // // Check for success message in the session and display an alert
+  function confirmDelete() {
+    if (confirm("Are you sure you want to delete this student?")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+</script>
+{% endblock %}

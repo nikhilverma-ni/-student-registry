@@ -1,0 +1,59 @@
+{% extends 'base.html' %} 
+{% block title %} Students{% endblock %} 
+{% block base %}
+<div class="p-4 text-dark">
+  <h1 class="">Students</h1>
+  <div class="table-responsive p-5">
+    {%block alert%} {%endblock%}
+
+    <table
+      id="student-table"
+      class="table table-bordered table-striped table-hover"
+    >
+      <thead>
+        <tr class="table-primary">
+          <th>Name</th>
+          <th>Age</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Contact</th>
+          {% block action_columns %}{% endblock %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in data %}
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.age }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.address }}</td>
+          <td>{{ item.contact }}</td>
+          {% block action_data %} {% endblock %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{%block script%} 
+<style>
+  /* Add spacing between search input and the table */
+   .dataTables_filter {
+    margin-bottom: 10px;
+  }
+</style>
+<script>
+  $(document).ready(function () {
+    var table = $('#student-table').DataTable({
+        paging: true,
+        pageLength: 5,
+        searching: true,
+        ordering: true,
+        
+    });
+});
+</script>
+{% endblock %}
+

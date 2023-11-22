@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %} Students{% endblock %}
+{% block base %}
+<div class="p-4 text-dark">
+  <h1 class="">Students</h1>
+  <div class="table-responsive p-5">
+    {%block alert%} {%endblock%}
+    <table
+      id="student-table"
+      class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr class="table-primary">
+          <th>Name</th>
+          <th>Age</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Contact</th>
+          {% block action_columns %}{% endblock %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in paginated_data %}
+        <tr>
+          <td>{{ data.name }}</td>
+          <td>{{ data.age }}</td>
+          <td>{{ data.email }}</td>
+          <td>{{ data.address }}</td>
+          <td>{{ data.contact }}</td>
+          {% block action_data %} {% endblock %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="pagination justify-content-center mt-5">
+      {% if paginated_data.has_previous %}
+          <a href="?page=1" class="btn btn-outline-secondary">&laquo; first</a>
+          <a href="?page={{ paginated_data.previous_page_number }}" class="btn btn-outline-secondary">previous</a>
+      {% endif %}
+  
+      {% for num in paginated_data.paginator.page_range %}
+          <a href="?page={{ num }}" class="btn btn-outline-secondary{% if num == paginated_data.number %} active{% endif %}">{{ num }}</a>
+      {% endfor %}
+  
+      {% if paginated_data.has_next %}
+          <a href="?page={{ paginated_data.next_page_number }}" class="btn btn-outline-secondary">next</a>
+          <a href="?page={{ paginated_data.paginator.num_pages }}" class="btn btn-outline-secondary">last &raquo;</a>
+      {% endif %}
+  </div>
+  </div>
+</div>
+
+<style>
+  /* Add spacing between search input and the table */
+   .dataTables_filter {
+    margin-bottom: 10px;
+  }
+</style>
+<script>
+  $(document).ready(function () {
+    var table = $('#student-table').DataTable({
+        paging: false,
+        searching: true,
+        ordering: true,
+        info:false,
+    });
+});
+</script>
+{% endblock %}
